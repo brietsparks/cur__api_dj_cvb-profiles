@@ -31,11 +31,11 @@ CONTRIBUTION_MODEL = 'profiles.models.Contribution'
 class Profile(DjangoNode):
     uuid = UniqueIdProperty()
     name = StringProperty()
-    userId = IntegerProperty()
 
     projects = RelationshipFrom(PROJECT_MODEL, BelongsToProfile.rel_name, model=BelongsToProfile)
 
     contributions = RelationshipFrom(CONTRIBUTION_MODEL, BelongsToProfile.rel_name, model=BelongsToProfile)
+    email_addresses = RelationshipTo(EMAIL_ADDRESS_MODEL, HasEmailAddress.rel_name, model=HasEmailAddress)
 
     class Meta:
         app_label = 'profiles'

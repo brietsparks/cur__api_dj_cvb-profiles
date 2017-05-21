@@ -1,7 +1,6 @@
 from django.test import TestCase
 from neomodel import db, clear_neo4j_database
-from profiles.models import Profile
-from profiles.models import Project, Contribution
+from profiles.models import Profile, Project, Contribution
 from profiles.managers.project import ProjectManager  # create_project, delete_project
 from profiles.exceptions import DoesNotExistError, RelationshipConstraintError
 from profiles.util import shuffle_string
