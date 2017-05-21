@@ -40,15 +40,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_neomodel',
+    'graphene_django',
 
     'profiles',
 ]
+
+# Graph API schema
+GRAPHENE = {
+    'SCHEMA': 'profiles_service.schema.schema'
+}
 
 NEOMODEL_SIGNALS = True
 NEOMODEL_FORCE_TIMEZONE = False
 NEOMODEL_ENCRYPTED_CONNECTION = True
 NEOMODEL_MAX_POOL_SIZE = 50
-
 
 NEO4J_HOST = util.get_env_var('NEO4J_HOST', 'localhost')
 NEO4J_BOLT_USER = util.get_env_var('NEO4J_BOLT_USER', 'neo4j')
