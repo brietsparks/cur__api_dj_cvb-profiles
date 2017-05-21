@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import profiles_service.util as util
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,10 +49,11 @@ NEOMODEL_FORCE_TIMEZONE = False
 NEOMODEL_ENCRYPTED_CONNECTION = True
 NEOMODEL_MAX_POOL_SIZE = 50
 
-NEO4J_HOST = 'localhost'
-NEO4J_BOLT_USER = 'neo4j'
-NEO4J_BOLT_PASSWORD = 'asdf'
-NEO4J_BOLT_PORT = 7687
+
+NEO4J_HOST = util.get_env_var('NEO4J_HOST', 'localhost')
+NEO4J_BOLT_USER = util.get_env_var('NEO4J_BOLT_USER', 'neo4j')
+NEO4J_BOLT_PASSWORD = util.get_env_var('NEO4J_BOLT_PASSWORD', 'asdf')
+NEO4J_BOLT_PORT = util.get_env_var('NEO4J_BOLT_PORT', 7687)
 
 NEOMODEL_NEO4J_BOLT_URL = 'bolt://' + NEO4J_BOLT_USER + ':' + NEO4J_BOLT_PASSWORD + '@' + NEO4J_HOST + ':' + str(NEO4J_BOLT_PORT)
 

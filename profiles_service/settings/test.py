@@ -1,8 +1,0 @@
-from .base import *
-
-NEO4J_HOST = 'localhost'
-NEO4J_BOLT_USER = 'neo4j'
-NEO4J_BOLT_PASSWORD = 'asdf'
-NEO4J_BOLT_PORT = 7688
-
-NEOMODEL_NEO4J_BOLT_URL = 'bolt://' + NEO4J_BOLT_USER + ':' + NEO4J_BOLT_PASSWORD + '@' + NEO4J_HOST + ':' + str(NEO4J_BOLT_PORT)
