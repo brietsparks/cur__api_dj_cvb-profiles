@@ -10,6 +10,7 @@ class ContributionType(graphene.ObjectType):
     summary = graphene.String()
 
 
+
 class CreateContributionMutation(graphene.Mutation):
     class Input:
         projectUuid = graphene.ID(required=True)

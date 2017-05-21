@@ -2,10 +2,9 @@ from django.test import TestCase
 from neomodel import db, clear_neo4j_database
 from profiles.models import Profile
 from profiles.models import Project, Contribution
-from profiles.managers.contribution import ContributionManager #create_contribution, delete_contribution
+from profiles.managers.contribution import ContributionManager  # create_contribution, delete_contribution
 from profiles.exceptions import DoesNotExistError
 from profiles.util import shuffle_string
-# from exps.tests.util import shuffle_string
 
 
 class CreateContributionTest(TestCase):

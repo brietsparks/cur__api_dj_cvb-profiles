@@ -1,6 +1,7 @@
 import graphene
 
 from profiles.managers.project import ProjectManager # create_project, delete_project
+from profiles.models import Project as ProjectModel
 from profiles.exceptions import DoesNotExistError, RelationshipConstraintError
 
 
@@ -8,6 +9,14 @@ class ProjectType(graphene.ObjectType):
     uuid = graphene.ID(required=True)
     title = graphene.String(required=True)
     summary = graphene.String()
+
+
+class ProjectQuery(graphene.AbstractType):
+    project = graphene.Field(ProjectType, uuid=graphene.ID(required=True))
+
+    def resolve_project(self, args, context, info):
+        project_uuid = args.get('projectUuid')
+        return ProjectModel.nodes.get_or_none(uuid=project_uuid)
 
 
 # I love you sooooo much, don't change :) well, if change means less programming, then I'd be ok with it ;)
