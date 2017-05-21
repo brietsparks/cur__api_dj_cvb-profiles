@@ -1,6 +1,6 @@
 from django_neomodel import DjangoNode
 from neomodel import (
-    StringProperty, UniqueIdProperty, IntegerProperty,
+    StringProperty, UniqueIdProperty, IntegerProperty, EmailProperty,
     StructuredRel, RelationshipFrom, RelationshipTo,
     One
 )
@@ -8,19 +8,22 @@ from neomodel import (
 
 class BelongsToProfile(StructuredRel):
     rel_name = 'BELONGS_TO_PROFILE'
-    pass
+
+
+class HasEmailAddress(StructuredRel):
+    rel_name = 'HAS_EMAIL_ADDRESS'
 
 
 class HasChildProject(StructuredRel):
     rel_name = 'HAS_CHILD_PROJECT'
-    pass
 
 
 class HasContribution(StructuredRel):
     rel_name = 'HAS_CONTRIBUTION'
-    pass
+
 
 PROFILE_MODEL = 'profiles.models.Profile'
+EMAIL_ADDRESS_MODEL = 'profiles.models.EmailAddress'
 PROJECT_MODEL = 'profiles.models.Project'
 CONTRIBUTION_MODEL = 'profiles.models.Contribution'
 
@@ -36,6 +39,13 @@ class Profile(DjangoNode):
 
     class Meta:
         app_label = 'profiles'
+
+
+class EmailAddress(DjangoNode):
+    uuid = UniqueIdProperty()
+    value = EmailProperty()
+
+    profile = RelationshipFrom(PROFILE_MODEL, HasEmailAddress.rel_name, model=HasEmailAddress)
 
 
 class Project(DjangoNode):

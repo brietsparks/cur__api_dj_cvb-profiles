@@ -7,3 +7,4 @@ class ProfileType(graphene.ObjectType):
     uuid = graphene.ID(required=True)
     name = graphene.String()
     projects = graphene.List(ProjectType)
+

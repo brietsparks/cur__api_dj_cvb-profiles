@@ -50,17 +50,17 @@ GRAPHENE = {
     'SCHEMA': 'profiles_service.schema.schema'
 }
 
-NEOMODEL_SIGNALS = True
-NEOMODEL_FORCE_TIMEZONE = False
-NEOMODEL_ENCRYPTED_CONNECTION = True
-NEOMODEL_MAX_POOL_SIZE = 50
-
 NEO4J_HOST = util.get_env_var('NEO4J_HOST', 'localhost')
 NEO4J_BOLT_USER = util.get_env_var('NEO4J_BOLT_USER', 'neo4j')
 NEO4J_BOLT_PASSWORD = util.get_env_var('NEO4J_BOLT_PASSWORD', 'asdf')
 NEO4J_BOLT_PORT = util.get_env_var('NEO4J_BOLT_PORT', 7687)
 
 NEOMODEL_NEO4J_BOLT_URL = 'bolt://' + NEO4J_BOLT_USER + ':' + NEO4J_BOLT_PASSWORD + '@' + NEO4J_HOST + ':' + str(NEO4J_BOLT_PORT)
+
+NEOMODEL_SIGNALS = True
+NEOMODEL_FORCE_TIMEZONE = False
+NEOMODEL_ENCRYPTED_CONNECTION = True
+NEOMODEL_MAX_POOL_SIZE = 50
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
