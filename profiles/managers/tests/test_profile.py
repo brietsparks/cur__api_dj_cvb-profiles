@@ -21,7 +21,7 @@ class CreateProfileTest(TestCase):
         value = 'test@test.test'
         email_address = EmailAddress(value=value).save()
 
-        new_profile_uuid = ProfileManager.create_new_profile(value)
+        new_profile_uuid = ProfileManager.create_new_profile(email_address.value)
         new_profile = Profile.nodes.get(uuid=new_profile_uuid)
         email_address = new_profile.email_addresses.get(value=value)
         self.assertEqual(email_address.value, value)
