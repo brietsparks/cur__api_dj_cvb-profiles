@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from .models import Client
+from django_jwt_wrapper.token import JWT
 
 
 @api_view(['POST'])
@@ -23,11 +24,9 @@ def get_access_token(request):
         response_data['valid_credentials'] = False
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
-    permissions = client.permissions.filter(name__in=permission_names)
+    permissions = list(client.get_granted_permissions(permission_names).values('name', 'description'))
 
+    response_data['access_token'] = JWT.create_token(600, permissions=permissions, aud=client.id, aud_alias=client.name)
 
-    # todo:
-    #   permissions to json format
-    #   create and return jwt
-
+    return Response(response_data)
 
