@@ -36,11 +36,8 @@ class Client(models.Model):
     domain = models.CharField(max_length=255, blank=True)
     permissions = models.ManyToManyField(Permission, blank=True)
 
-    def get_permissions(self, names, as_list=True):
-        permissions = self.permissions.filter(name__in=names)
-
-        if as_list:
-            return list(permissions)
+    def get_granted_permissions(self, requested_names):
+        permissions = self.permissions.filter(name__in=requested_names) #.values('name', 'description')
 
         return permissions
 

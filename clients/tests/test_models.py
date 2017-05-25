@@ -28,11 +28,11 @@ class ClientTest(TestCase):
 
     def setUp(self):
         pass
-        permission_1 = Permission(name='permission_1')
+        permission_1 = Permission(name='permission_1', description='permission 1 description')
         permission_1.save()
-        permission_2 = Permission(name='permission_2')
+        permission_2 = Permission(name='permission_2', description='permission 2 description')
         permission_2.save()
-        permission_3 = Permission(name='permission_3')
+        permission_3 = Permission(name='permission_3', description='permission 3 description')
         permission_3.save()
 
         client = Client()
@@ -46,16 +46,43 @@ class ClientTest(TestCase):
         self.permission_3 = permission_3
         self.client = client
 
-    def test_get_permissions_returns_permissions_by_given_names(self):
-        names = ['permission_1', 'permission_2']
+    def test_get_granted_permissions_returns_granted_permissions(self):
+        # actual
+        granted_permissions_query_set = self.client.get_granted_permissions([
+            self.permission_1.name,
+            self.permission_2.name
+        ]).values('name', 'description')
+
+        granted_permissions_list = list(granted_permissions_query_set)
+
+        # expected
+        expected = [
+            {'name': self.permission_1.name, 'description': self.permission_1.description},
+            {'name': self.permission_2.name, 'description': self.permission_2.description}
+        ]
+
+        # assertion
         self.assertEqual(
-            self.client.get_permissions(names),
-            [self.permission_1, self.permission_2]
+            granted_permissions_list,
+            expected
         )
 
-    def test_get_permissions_does_not_return_an_ungranted_permission(self):
-        names = ['permission_1', 'ungranted-permission']
+    def test_get_granted_permission_names_does_not_return_an_ungranted_permission_names(self):
+        # actual
+        granted_permissions_query_set = self.client.get_granted_permissions([
+            self.permission_1.name,
+            'ungranted_permission'
+        ]).values('name', 'description')
+
+        granted_permissions_list = list(granted_permissions_query_set)
+
+        # expected
+        expected = [
+            {'name': self.permission_1.name, 'description': self.permission_1.description},
+        ]
+
+        # assertion
         self.assertEqual(
-            self.client.get_permissions(names),
-            [self.permission_1]
+            granted_permissions_list,
+            expected
         )
