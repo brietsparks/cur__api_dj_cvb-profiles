@@ -1,6 +1,7 @@
 appdirs==1.4.3
 Django==1.11.1
 django-cors-headers==2.0.2
+git+https://github.com/brietsparks/django-jwt-wrapper
 django-neomodel==0.0.3
 djangorestframework==3.6.3
 graphene==1.4

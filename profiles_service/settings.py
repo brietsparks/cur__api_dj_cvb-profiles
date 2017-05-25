@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'django_neomodel',
     'graphene_django',
+    'django_jwt_wrapper',
 
     'profiles',
     'clients',
